@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6754574925110846122}
   m_Layer: 0
   m_Name: Manager
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,9 +44,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9f8a6e17a4f41a3b86faf50dff4da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCD: 0
-  nextSpawnTime: 3
-  Player: {fileID: 0}
-  TestSpawn: {fileID: 0}
-  Enemies:
-  - {fileID: 2436243729185293691, guid: 703d5b5cde47e834a8a69a7294351d65, type: 3}
