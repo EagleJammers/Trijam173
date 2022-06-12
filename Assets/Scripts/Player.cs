@@ -38,10 +38,10 @@ public class Player : MonoBehaviour
 
     void Attack(Vector3 CursorPos)
     {
-      Bullet b = Instantiate(Bullet, this.transform) as Bullet;
+      Bullet b = Instantiate(Bullet) as Bullet;
       Vector3 TargetVector = Camera.main.ScreenToWorldPoint(CursorPos - this.transform.position);
       TargetVector = new Vector3(TargetVector.x, TargetVector.y, 0);
-      b.SetDirection(TargetVector);
+      b.Initialize(TargetVector, this.transform.position);
     }
 
     void TakeDamage(int dmg)
