@@ -27,7 +27,13 @@ public class Player : MonoBehaviour
       this.transform.position += input * speed * Time.deltaTime;
     }
 
-    void Attack(Vector3 cursorPos);
+    void Attack(Vector3 cursorPos)
+    {
 
-    void TakeDamage(int dmg);
+    }
+    
+    void TakeDamage(int dmg)
+    {
+
+    }
 }
