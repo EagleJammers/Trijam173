@@ -44,8 +44,8 @@ public class Player : MonoBehaviour
       b.Initialize(TargetVector, this.transform.position);
     }
 
-    void TakeDamage(int dmg)
+    public void TakeDamage(int dmg)
     {
-
+      this.CurrentHealth -= dmg;
     }
 }
