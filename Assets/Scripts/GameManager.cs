@@ -23,8 +23,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spawnCD = nextSpawnTime;
-        currentTimeToIncrease = timeToCapIncrease;
+        Begin();
     }
 
     // Update is called once per frame
@@ -80,7 +79,11 @@ public class GameManager : MonoBehaviour
 
     void Begin()
     {
-
+        enemyLimit = 5;
+        nextSpawnTime = 6.0f;
+        maxSpawnVariability = 8.0f;
+        spawnCD = nextSpawnTime;
+        currentTimeToIncrease = timeToCapIncrease;
     }
 
     void LevelUp()
