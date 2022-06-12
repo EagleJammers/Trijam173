@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     {
         IncreaseDifficulty(Time.deltaTime);
         spawnCD -= Time.deltaTime;
+        //Debug.Log("SpawnCD is " + spawnCD);
+
         if (spawnCD <= 0)
         {
             Spawn();
@@ -39,15 +41,18 @@ public class GameManager : MonoBehaviour
 
     void Spawn()
     {
+        Debug.Log("Spawning...");
         if (enemyCount < enemyLimit)
         {
             float xCoord = Random.Range(bottomLeft.x, topRight.x);
             float yCoord = Random.Range(bottomLeft.y, topRight.y);
             Vector3 spawnPosition = new Vector3(xCoord, yCoord, 0);
 
-            GameObject newEnemy = Object.Instantiate(Enemies[spawnNext], spawnPosition, Quaternion.identity);
+            Object.Instantiate(Enemies[spawnNext], spawnPosition, Quaternion.identity);
             spawnCD = nextSpawnTime + Random.Range(0, maxSpawnVariability);
+
             enemyCount++;
+            Debug.Log("Enemy count is " + enemyCount);
         }
     }
 
@@ -62,13 +67,16 @@ public class GameManager : MonoBehaviour
 
         if (nextSpawnTime > 0.1)
         {
-            nextSpawnTime -= timeElapsed / 15.0f; 
+            nextSpawnTime -= timeElapsed / 15.0f;
+            if (nextSpawnTime <= 0.1)
+                nextSpawnTime = 0.1f;
         }
 
         currentTimeToIncrease -= timeElapsed;
         if (currentTimeToIncrease <= 0)
         {
             enemyLimit++;
+            Debug.Log("Enemy Limit is " + enemyLimit);
             currentTimeToIncrease = timeToCapIncrease;
         }
 
@@ -82,8 +90,11 @@ public class GameManager : MonoBehaviour
         enemyLimit = 5;
         nextSpawnTime = 6.0f;
         maxSpawnVariability = 8.0f;
+        enemyCount = 0;
         spawnCD = nextSpawnTime;
         currentTimeToIncrease = timeToCapIncrease;
+        Kills = 0;
+        KillsNeeded=4;
     }
 
     void LevelUp()
