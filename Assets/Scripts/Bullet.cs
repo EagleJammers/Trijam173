@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
 
     Vector3 TargetVector;
-    float speed;
+    float speed = 5f;
     //GameObject?? Tag?? TargetType
 
     // Start is called before the first frame update
@@ -18,16 +18,20 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+      if(TargetVector != null)
+      {
+        this.transform.position += TargetVector * speed * Time.deltaTime;
+      }
     }
 
-    SetDirection(Vector3 targetVector)
+    public void SetDirection(Vector3 targetVector)
     {
-      this.TargetVector = targetVector;
+
+      this.TargetVector = targetVector.normalized;
     }
 
-    OnCollision()
+    void OnCollision()
     {
-      
+
     }
 }
