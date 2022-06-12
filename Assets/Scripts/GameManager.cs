@@ -5,9 +5,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    int enemyLimit;
+    int enemyLimit = 5;
+    float timeToCapIncrease = 5f;
+    float currentTimeToIncrease;
+    int enemyCount;
     public float spawnCD;
-    public float nextSpawnTime = 3.0f;
+    public float nextSpawnTime = 6.0f;
+    public float maxSpawnVariability = 8.0f;
     public Vector3 bottomLeft;
     public Vector3 topRight;
     int spawnNext = 0;
@@ -20,11 +24,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         spawnCD = nextSpawnTime;
+        currentTimeToIncrease = timeToCapIncrease;
     }
 
     // Update is called once per frame
     void Update()
     {
+        IncreaseDifficulty(Time.deltaTime);
         spawnCD -= Time.deltaTime;
         if (spawnCD <= 0)
         {
@@ -34,12 +40,42 @@ public class GameManager : MonoBehaviour
 
     void Spawn()
     {
-        float xCoord = Random.Range(bottomLeft.x, topRight.x);
-        float yCoord = Random.Range(bottomLeft.y, topRight.y);
-        Vector3 spawnPosition = new Vector3(xCoord, yCoord, 0);
+        if (enemyCount < enemyLimit)
+        {
+            float xCoord = Random.Range(bottomLeft.x, topRight.x);
+            float yCoord = Random.Range(bottomLeft.y, topRight.y);
+            Vector3 spawnPosition = new Vector3(xCoord, yCoord, 0);
 
-        GameObject newEnemy = Object.Instantiate(Enemies[spawnNext],spawnPosition,Quaternion.identity);
-        spawnCD = nextSpawnTime;
+            GameObject newEnemy = Object.Instantiate(Enemies[spawnNext], spawnPosition, Quaternion.identity);
+            spawnCD = nextSpawnTime + Random.Range(0, maxSpawnVariability);
+            enemyCount++;
+        }
+    }
+
+    void IncreaseDifficulty(float timeElapsed)
+    {
+        if (maxSpawnVariability > 0)
+        {
+            maxSpawnVariability -= timeElapsed / 40.0f; //8*20 seconds for no variability
+            if (maxSpawnVariability < 0)
+               maxSpawnVariability = 0;
+        }
+
+        if (nextSpawnTime > 0.1)
+        {
+            nextSpawnTime -= timeElapsed / 15.0f; 
+        }
+
+        currentTimeToIncrease -= timeElapsed;
+        if (currentTimeToIncrease <= 0)
+        {
+            enemyLimit++;
+            currentTimeToIncrease = timeToCapIncrease;
+        }
+
+
+
+ 
     }
 
     void Begin()
