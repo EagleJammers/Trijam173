@@ -47,5 +47,9 @@ public class Player : MonoBehaviour
     public void TakeDamage(int dmg)
     {
       this.CurrentHealth -= dmg;
+      if (this.CurrentHealth <= 0)
+      {
+        GameObject.FindWithTag("GameController").GetComponent<GameManager>().GameOver();
+      }
     }
 }
