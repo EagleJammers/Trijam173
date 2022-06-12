@@ -8,6 +8,11 @@ public class EnemyDumbfollow : MonoBehaviour
 
     [SerializeField]
     private float Speed = 2;
+
+    public void Start()
+    {
+        Target = GameObject.FindGameObjectWithTag("Player");
+    }
     public void MakeMove(Transform target)
     {
         Vector3 movementDirection = target.position - this.transform.position;
