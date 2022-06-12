@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public float spawnCD;
     public float nextSpawnTime = 3.0f;
     int spawnNext = 0;
-    int Kills;
+    int Kills = 0;
     int KillsNeeded;
     public GameObject Player;
     public GameObject TestSpawn;
@@ -45,6 +45,11 @@ public class GameManager : MonoBehaviour
     void LevelUp()
     {
 
+    }
+
+    public void GainExperience()
+    {
+        this.Kills++;
     }
 
     public void GameOver()

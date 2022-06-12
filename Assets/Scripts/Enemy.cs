@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ContactAttack : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
+  int health = 10;
   [SerializeField]
   int damage = 5;
+
     void OnCollisionEnter(Collision collide)
     {
       GameObject go = collide.gameObject;
@@ -14,5 +16,15 @@ public class ContactAttack : MonoBehaviour
           Player p = go.GetComponent<Player>();
             p.TakeDamage(damage);
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+      this.health -= damage;
+      if (this.health <= 0)
+      {
+        GameObject.FindWithTag("GameController").GetComponent<GameManager>().GainExperience();
+        Destroy(this);
+      }
     }
 }
