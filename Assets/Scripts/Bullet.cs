@@ -6,8 +6,8 @@ public class Bullet : MonoBehaviour
 {
     Vector3 TargetVector;
     float speed = 5f;
-    //GameObject?? Tag?? TargetType
-
+    string TargetTag;
+    int Damage;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,15 +22,39 @@ public class Bullet : MonoBehaviour
       }
     }
 
-    public void Initialize(Vector3 targetVector, Vector3 startPosition)
+    public void Initialize(Vector3 targetVector, Vector3 startPosition, string targetTag, int damage)
     {
-
       this.TargetVector = targetVector.normalized;
       this.transform.position = startPosition;
+      this.TargetTag = targetTag;
+      this.Damage = damage;
     }
 
-    void OnCollision()
-    {
 
-    }
+        void OnCollisionEnter(Collision collide)
+        {
+          GameObject go = collide.gameObject;
+            if (go.tag == TargetTag)
+            {
+              if (TargetTag == "Player")
+              {
+              Player p = go.GetComponent<Player>();
+                p.TakeDamage(Damage);
+              }
+              else if(TargetTag =="Enemy")
+              {
+                Enemy e = go.GetComponent<Enemy>();
+                e.TakeDamage(Damage);
+              }
+            }
+            else if (go.tag == "Wall")
+            {
+
+            }
+            else
+            {
+              return;
+            }
+            Destroy(this);
+        }
 }
