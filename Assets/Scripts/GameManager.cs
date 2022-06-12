@@ -8,11 +8,12 @@ public class GameManager : MonoBehaviour
     int enemyLimit;
     public float spawnCD;
     public float nextSpawnTime = 3.0f;
+    public Vector3 bottomLeft;
+    public Vector3 topRight;
     int spawnNext = 0;
     int Kills;
     int KillsNeeded;
     public GameObject Player;
-    public GameObject TestSpawn;
     public GameObject[] Enemies;
 
     // Start is called before the first frame update
@@ -33,7 +34,11 @@ public class GameManager : MonoBehaviour
 
     void Spawn()
     {
-        GameObject newEnemy = Object.Instantiate(Enemies[spawnNext], TestSpawn.transform);
+        float xCoord = Random.Range(bottomLeft.x, topRight.x);
+        float yCoord = Random.Range(bottomLeft.y, topRight.y);
+        Vector3 spawnPosition = new Vector3(xCoord, yCoord, 0);
+
+        GameObject newEnemy = Object.Instantiate(Enemies[spawnNext],spawnPosition,Quaternion.identity);
         spawnCD = nextSpawnTime;
     }
 
