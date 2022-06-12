@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IAttack
 {
-    void Fire(Vector3 direction); // Handles cd
+    void Fire(Vector3 direction); // Handles cd & logic
     void DecrementCD();
     void Upgrade();
     
