@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     float Speed = 1f;
     int MaxHealth = 100;
     int CurrentHealth;
+    int Damage = 5;
     //IAttack Attack;
     //IMove Move;
     [SerializeField]
@@ -41,7 +42,7 @@ public class Player : MonoBehaviour
       Bullet b = Instantiate(Bullet) as Bullet;
       Vector3 TargetVector = Camera.main.ScreenToWorldPoint(CursorPos - this.transform.position);
       TargetVector = new Vector3(TargetVector.x, TargetVector.y, 0);
-      b.Initialize(TargetVector, this.transform.position);
+      b.Initialize(TargetVector, this.transform.position, "Enemy", this.Damage);
     }
 
     public void TakeDamage(int dmg)
