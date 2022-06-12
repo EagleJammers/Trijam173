@@ -50,6 +50,13 @@ public class GameManager : MonoBehaviour
     public void GainExperience()
     {
         this.Kills++;
+        
+        if (this.Kills >= this.KillsNeeded)
+        {
+          LevelUp();
+          this.Kills = 0;
+          this.KillsNeeded *= 2;
+        }
     }
 
     public void GameOver()
