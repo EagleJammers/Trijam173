@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     int MaxHealth = 100;
     int CurrentHealth;
     int Damage = 5;
+    int AttackCooldown=0;
+    int FramesBetweenAttack = 60;
     //IAttack Attack;
     //IMove Move;
     [SerializeField]
@@ -28,6 +30,7 @@ public class Player : MonoBehaviour
         {
             Attack(Input.mousePosition);
         }
+        AttackCooldown--;
 
     }
 
@@ -39,10 +42,14 @@ public class Player : MonoBehaviour
 
     void Attack(Vector3 CursorPos)
     {
-      Bullet b = Instantiate(Bullet) as Bullet;
-      Vector3 TargetVector = Camera.main.ScreenToWorldPoint(CursorPos - this.transform.position);
-      TargetVector = new Vector3(TargetVector.x, TargetVector.y, 0);
-      b.Initialize(TargetVector, this.transform.position, "Enemy", this.Damage);
+        if (AttackCooldown <= 0)
+        {
+            Bullet b = Instantiate(Bullet) as Bullet;
+            Vector3 TargetVector = Camera.main.ScreenToWorldPoint(CursorPos - this.transform.position);
+            TargetVector = new Vector3(TargetVector.x, TargetVector.y, 0);
+            b.Initialize(TargetVector, this.transform.position, "Enemy", this.Damage);
+            AttackCooldown = FramesBetweenAttack;
+        }
     }
 
     public void TakeDamage(int dmg)
@@ -53,4 +60,20 @@ public class Player : MonoBehaviour
         GameObject.FindWithTag("GameController").GetComponent<GameManager>().GameOver();
       }
     }
+
+    public void UpgradeFirerate()
+    {
+        AttackCooldown -= AttackCooldown / 10;
+    }
+
+    public void UpgradeSpeed()
+    {
+        Speed++;
+    }
+
+    public void Heal()
+    {
+        CurrentHealth = MaxHealth;
+    }
+
 }
