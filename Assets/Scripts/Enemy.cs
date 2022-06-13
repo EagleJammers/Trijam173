@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
   [SerializeField]
   int damage = 5;
 
-    void OnCollisionEnter(Collision collide)
+    void OnTriggerEnter2D(Collider2D collide)
     {
       GameObject go = collide.gameObject;
         if (go.tag == "Player")

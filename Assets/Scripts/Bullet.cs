@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+[SerializeField]
     Vector3 TargetVector;
+    [SerializeField]
     float speed = 5f;
+    [SerializeField]
     string TargetTag;
+    [SerializeField]
     int Damage;
     // Start is called before the first frame update
     void Start()
@@ -31,30 +35,32 @@ public class Bullet : MonoBehaviour
     }
 
 
-        void OnCollisionEnter(Collision collide)
+    void OnTriggerEnter2D(Collider2D collide)
+    {
+      Debug.Log("col");
+      GameObject go = collide.gameObject;
+      Debug.Log(go.tag);
+        if (go.tag ==TargetTag)
         {
-          GameObject go = collide.gameObject;
-            if (go.tag == TargetTag)
-            {
-              if (TargetTag == "Player")
-              {
-              Player p = go.GetComponent<Player>();
-                p.TakeDamage(Damage);
-              }
-              else if(TargetTag =="Enemy")
-              {
-                Enemy e = go.GetComponent<Enemy>();
-                e.TakeDamage(Damage);
-              }
-            }
-            else if (go.tag == "Wall")
-            {
-
-            }
-            else
-            {
-              return;
-            }
-            Destroy(this);
+          if (TargetTag == "Player")
+          {
+          Player p = go.GetComponent<Player>();
+            p.TakeDamage(Damage);
+          }
+          else if(TargetTag == ("Enemy"))
+          {
+            Enemy e = go.GetComponent<Enemy>();
+            e.TakeDamage(Damage);
+          }
         }
+        else if (go.tag == ("Wall"))
+        {
+
+        }
+        else
+        {
+          return;
+        }
+        Destroy(this);
+    }
 }
